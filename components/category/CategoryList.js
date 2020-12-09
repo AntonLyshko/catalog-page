@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, Text } from 'react-native';
 import { Avatar, ListItem } from 'react-native-elements';
 
 const CategoryList = ({ level, data, handleNavigation }) => {
@@ -13,7 +13,7 @@ const CategoryList = ({ level, data, handleNavigation }) => {
                     <ListItem backgroundColor='blue' bottomDivider>
                         <Avatar source={{ uri: item.icon }} />
                         <ListItem.Content>
-                            <ListItem.Title>{item.name}</ListItem.Title>
+                            <ListItem.Title><Text>{item.name}</Text></ListItem.Title>
                         </ListItem.Content>
                     </ListItem>
                 </TouchableOpacity>
@@ -29,7 +29,7 @@ const CategoryList = ({ level, data, handleNavigation }) => {
                         <ListItem backgroundColor='blue' bottomDivider>
                             <Avatar source={{ uri: item.icon }} />
                             <ListItem.Content>
-                                <ListItem.Title>{item.name}</ListItem.Title>
+                                <ListItem.Title><Text>{item.name}</Text></ListItem.Title>
                             </ListItem.Content>
                         </ListItem>
                     </TouchableOpacity>

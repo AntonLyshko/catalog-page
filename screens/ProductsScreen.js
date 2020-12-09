@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, Text } from 'react-native';
 import styled from 'styled-components/native'
 import axios from 'axios'
 import ProductList from '../components/category/ProductList'
@@ -23,9 +23,7 @@ const ProductsScreen = ({ route, navigation }) => {
     return (
         < Container >
             {!data.length ? (
-                <>
-                    Loading...
-                </>
+                <Text>Loading...</Text>
             ) :
                 <ProductList data={data} />
             }
@@ -38,7 +36,7 @@ const Container = styled.ScrollView`
   display: flex;
   flex: 1;
   background: #181A20;
-  font-family: 'SFPRO-Regular'
+  font-family: 'OpenSans-Regular'
   padding: 5%;
   padding-top: 10%;
 `;

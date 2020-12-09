@@ -19,7 +19,6 @@ const App = () => {
 
   return (
     <Container>
-
       <NavigationContainer>
         <Stack.Navigator headerMode="none">
           <Stack.Screen name="Catalog" component={CatalogScreen} />
@@ -36,7 +35,7 @@ const App = () => {
 const Container = styled.View`
   display: flex;
   flex: 1;
-  font-family: 'SFPRO-Regular'
+  font-family: 'OpenSans-Regular'
   color: #ffffff;
   background: #181A20;
 `;
