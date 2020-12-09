@@ -12,8 +12,8 @@ const ProductList = ({ data, handleNavigation }) => {
                         <Card.Title title={item.name} subtitle={item.price + ' руб.'} />
                         <Card.Cover source={{ uri: item.photoUrl }} />
                         <Card.Actions>
-                            <Button><Text style={styles.text}>Купить</Text></Button>
-                            <Button><Text style={styles.text}>Добавить корзину</Text></Button>
+                            <Button><Text>Купить</Text></Button>
+                            <Button><Text>Добавить корзину</Text></Button>
                         </Card.Actions>
                     </Card>
                 </ Container>

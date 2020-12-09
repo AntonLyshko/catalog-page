@@ -13,7 +13,7 @@ const CategoryList = ({ level, data, handleNavigation }) => {
                     <ListItem backgroundColor='blue' bottomDivider>
                         <Avatar source={{ uri: item.icon }} />
                         <ListItem.Content>
-                            <ListItem.Title><Text style={styles.text}>{item.name}</Text></ListItem.Title>
+                            <ListItem.Title><Text>{item.name}</Text></ListItem.Title>
                         </ListItem.Content>
                     </ListItem>
                 </TouchableOpacity>
@@ -29,7 +29,7 @@ const CategoryList = ({ level, data, handleNavigation }) => {
                         <ListItem backgroundColor='blue' bottomDivider>
                             <Avatar source={{ uri: item.icon }} />
                             <ListItem.Content>
-                                <ListItem.Title><Text style={styles.text}>{item.name}</Text></ListItem.Title>
+                                <ListItem.Title><Text>{item.name}</Text></ListItem.Title>
                             </ListItem.Content>
                         </ListItem>
                     </TouchableOpacity>
@@ -41,11 +41,6 @@ const CategoryList = ({ level, data, handleNavigation }) => {
     })
 }
 
-var styles = StyleSheet.create({
-    text: {
-        color: '#ffffff',
-    }
-});
 
 export default React.memo(CategoryList)
 
