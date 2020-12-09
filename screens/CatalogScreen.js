@@ -19,6 +19,7 @@ const CatalogScreen = ({ route, navigation }) => {
 
 
     const handleNavigation = (path, data, full_slug, slug, level) => {
+        // Переходим в дочернию категорию
         navigation.navigate(path, { data: data, full_slug: full_slug, slug: slug, level: level + 1 })
     }
 
@@ -40,6 +41,7 @@ const Container = styled.ScrollView`
   flex: 1;
   background: #181A20;
   font-family: 'OpenSans-Regular'
+  color: #111111;
   padding: 5%;
   padding-top: 10%;
 `;
@@ -47,6 +49,7 @@ const Container = styled.ScrollView`
 var styles = StyleSheet.create({
     text: {
         color: '#ffffff',
+        fontSize: 32
     }
 });
 

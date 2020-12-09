@@ -36,7 +36,7 @@ const Container = styled.View`
   display: flex;
   flex: 1;
   font-family: 'OpenSans-Regular'
-  color: #ffffff;
+  color: #111111;
   background: #181A20;
 `;
 

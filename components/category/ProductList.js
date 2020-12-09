@@ -25,7 +25,7 @@ const ProductList = ({ data, handleNavigation }) => {
 const Container = styled.ScrollView`
   display: flex;
   background: #181A20;
-  
+    color: #111111;
   font-family: 'OpenSans-Regular'
   margin: 5%;
 `;

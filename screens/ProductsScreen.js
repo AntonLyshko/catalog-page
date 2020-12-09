@@ -37,6 +37,7 @@ const Container = styled.ScrollView`
   flex: 1;
   background: #181A20;
   font-family: 'OpenSans-Regular'
+  color: #111111;
   padding: 5%;
   padding-top: 10%;
 `;
