@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity, Text } from 'react-native';
+import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { Button, Card } from 'react-native-paper';
 import styled from 'styled-components/native'
 
@@ -12,8 +12,8 @@ const ProductList = ({ data, handleNavigation }) => {
                         <Card.Title title={item.name} subtitle={item.price + ' руб.'} />
                         <Card.Cover source={{ uri: item.photoUrl }} />
                         <Card.Actions>
-                            <Button><Text>Купить</Text></Button>
-                            <Button><Text>Добавить корзину</Text></Button>
+                            <Button><Text style={styles.text}>Купить</Text></Button>
+                            <Button><Text style={styles.text}>Добавить корзину</Text></Button>
                         </Card.Actions>
                     </Card>
                 </ Container>
@@ -25,10 +25,16 @@ const ProductList = ({ data, handleNavigation }) => {
 const Container = styled.ScrollView`
   display: flex;
   background: #181A20;
+  
   font-family: 'OpenSans-Regular'
   margin: 5%;
 `;
 
+var styles = StyleSheet.create({
+    text: {
+        color: '#ffffff',
+    }
+});
 
 
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollView, Text } from 'react-native';
+import { ScrollView, Text, StyleSheet } from 'react-native';
 import styled from 'styled-components/native'
 
 const ProductScreen = ({ route, navigation }) => {

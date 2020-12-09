@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity, Text } from 'react-native';
+import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { Avatar, ListItem } from 'react-native-elements';
 
 const CategoryList = ({ level, data, handleNavigation }) => {
@@ -13,7 +13,7 @@ const CategoryList = ({ level, data, handleNavigation }) => {
                     <ListItem backgroundColor='blue' bottomDivider>
                         <Avatar source={{ uri: item.icon }} />
                         <ListItem.Content>
-                            <ListItem.Title><Text>{item.name}</Text></ListItem.Title>
+                            <ListItem.Title><Text style={styles.text}>{item.name}</Text></ListItem.Title>
                         </ListItem.Content>
                     </ListItem>
                 </TouchableOpacity>
@@ -29,7 +29,7 @@ const CategoryList = ({ level, data, handleNavigation }) => {
                         <ListItem backgroundColor='blue' bottomDivider>
                             <Avatar source={{ uri: item.icon }} />
                             <ListItem.Content>
-                                <ListItem.Title><Text>{item.name}</Text></ListItem.Title>
+                                <ListItem.Title><Text style={styles.text}>{item.name}</Text></ListItem.Title>
                             </ListItem.Content>
                         </ListItem>
                     </TouchableOpacity>
@@ -40,6 +40,12 @@ const CategoryList = ({ level, data, handleNavigation }) => {
 
     })
 }
+
+var styles = StyleSheet.create({
+    text: {
+        color: '#ffffff',
+    }
+});
 
 export default React.memo(CategoryList)
 

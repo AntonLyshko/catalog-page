@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollView, Text, View } from 'react-native';
+import { ScrollView, Text, View, StyleSheet } from 'react-native';
 import axios from 'axios'
 import styled from 'styled-components/native'
 import CategoryList from '../components/category/CategoryList'
@@ -25,7 +25,7 @@ const CatalogScreen = ({ route, navigation }) => {
     return (
         <Container>
             {!data.length ? (
-                <Text>Loading...</Text>
+                <Text style={styles.text}>Loading...</Text>
             ) :
                 <View>
                     <CategoryList level={1} data={data} handleNavigation={handleNavigation} />
@@ -44,6 +44,11 @@ const Container = styled.ScrollView`
   padding-top: 10%;
 `;
 
+var styles = StyleSheet.create({
+    text: {
+        color: '#ffffff',
+    }
+});
 
 
 

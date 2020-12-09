@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollView, Text } from 'react-native';
+import { ScrollView, Text, StyleSheet } from 'react-native';
 import styled from 'styled-components/native'
 import CategoryList from '../components/category/CategoryList'
 
@@ -43,7 +43,7 @@ const SubcategoryScreen = ({ route, navigation }) => {
     return (
         < Container >
             {!data.length ? (
-                <Text>Loading...</Text>
+                <Text style={styles.text}>Loading...</Text>
             ) :
 
                 <CategoryList level={level} data={data} handleNavigation={handleNavigation} />
@@ -62,6 +62,12 @@ const Container = styled.ScrollView`
   padding: 5%;
   padding-top: 10%;
 `;
+
+var styles = StyleSheet.create({
+    text: {
+        color: '#ffffff',
+    }
+});
 
 
 
