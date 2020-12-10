@@ -20,7 +20,7 @@ const CatalogScreen = ({ route, navigation }) => {
 
     const handleNavigation = (path, data, full_slug, slug, level) => {
         // Переходим в дочернию категорию
-        navigation.navigate(path, { data: data, full_slug: full_slug, slug: slug, level: level + 1 })
+        navigation.navigate(path, { data: data, full_slug: full_slug, slug: slug, level: level + 1, direction: true })
     }
 
     return (

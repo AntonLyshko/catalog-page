@@ -5,13 +5,12 @@ import { Avatar, ListItem } from 'react-native-elements';
 const CategoryList = ({ level, data, handleNavigation }) => {
     let index = 0;
     let newLevel = level;
-    // Поиск дочерней категории
+    // Поиск дочерней категории 
     while (!index) {
         for (let i = 0; i < data.length; i++) {
             let el = data[i];
             if (el.level === newLevel) {
                 index++
-                console.log('Нашел на уровне ', newLevel)
                 break;
             }
         }
@@ -22,9 +21,10 @@ const CategoryList = ({ level, data, handleNavigation }) => {
     return data.map((item) => {
         if (item.level === newLevel) {
             index += 1;
-            let slug = item.full_slug.split('/')[level - 1]
+            let slug = item.full_slug.split('/')[newLevel - 1]
+            let prevSlug = item.full_slug.split('/')[newLevel - 2]
             return (
-                <TouchableOpacity key={item.id} onPress={() => handleNavigation('Subcategory', data, item.full_slug, slug, level)}>
+                <TouchableOpacity key={item.id} onPress={() => handleNavigation('Subcategory', data, item.full_slug, slug, newLevel, prevSlug)}>
                     <ListItem backgroundColor='blue' bottomDivider>
                         <Avatar source={{ uri: item.icon }} />
                         <ListItem.Content>

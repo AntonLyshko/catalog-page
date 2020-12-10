@@ -4,7 +4,6 @@ import styled from 'styled-components/native'
 import CatalogScreen from './screens/CatalogScreen';
 import SubcategoryScreen from './screens/SubcategoryScreen';
 import ProductsScreen from './screens/ProductsScreen';
-import ProductScreen from './screens/ProductScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -24,7 +23,6 @@ const App = () => {
           <Stack.Screen name="Catalog" component={CatalogScreen} />
           <Stack.Screen name="Subcategory" component={SubcategoryScreen} />
           <Stack.Screen name="Products" component={ProductsScreen} />
-          <Stack.Screen name="Product" component={ProductScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </Container>

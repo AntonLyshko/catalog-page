@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollView, Text, StyleSheet } from 'react-native';
+import { ScrollView, Text, StyleSheet, BackHandler } from 'react-native';
 import styled from 'styled-components/native'
 import axios from 'axios'
 import ProductList from '../components/category/ProductList'
+
 
 const ProductsScreen = ({ route, navigation }) => {
 
@@ -16,8 +17,16 @@ const ProductsScreen = ({ route, navigation }) => {
     }
 
     useEffect(() => {
+
+        BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
         if (data.length === 0) getData()
     })
+
+    const handleBackButtonClick = () => {
+        route.params.getBack()
+        navigation.goBack();
+        return true;
+    }
 
 
     return (
