@@ -1,85 +1,95 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollView, Text, StyleSheet, BackHandler } from 'react-native';
+import { ScrollView, Text, StyleSheet, BackHandler, View, Button } from 'react-native';
 import styled from 'styled-components/native'
 import CategoryList from '../components/category/CategoryList'
 
 const SubcategoryScreen = ({ route, navigation }) => {
+    let data = route.params.data
+    let id = route.params.id
+    // История перемещения, чтобы двигаться вперед и назад по категориям
+    const [history, setHistory] = useState([])
+    const [deep, setDeep] = useState(0)
+    const [loading, setLoading] = useState(false)
 
-    // Навигация дочерних категорий по slug
-
-    const [data, setData] = useState([])
-    const [level, setLevel] = useState()
-    const [deepness, setDeepness] = useState(0)
-    let prevData = route.params.data
-
-    const getData = async () => {
-        let slug = route.params.slug
-        let newLevel = level;
-        let result = []
-
-        if (level < route.params.level || !level) setLevel(route.params.level)
-        // Обновление level если направление вперед
-
-        // Получаем все дочерние элементы нужной категории
-        for (let i = 0; i < prevData.length; i++) {
-            let target = prevData[i].full_slug.split('/')[newLevel - 2];
-            if (!route.params.direction) target = prevData[i].full_slug.split('/')[deepness];
-            // Если направление назад, то взять предыдущий slug, используя глубину вхождения в подкатегории
-            if (target == slug) result.push(prevData[i])
-            // Поиск нужных категорий, путем перебор массива категорий
-        }
-        // Если дочерних элементов больше нет, и осталась лишь выбранная категория, то переходим в товары
-        if (result.length === 1) {
-            navigation.navigate('Products', { id: result[0].id, getBack: () => getBack() })
-        } else {
-            setData(result)
-        }
+    if (!data.length) {
+        navigation.navigate('Products', { id: id, getBack: () => getBack() })
     }
+
+
+
     useEffect(() => {
+        // Слушатель на кнопку "назад" на телефоне
         BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
-        if (data.length === 0) getData()
+        if (!loading) getData()
     })
 
+    const getData = () => {
+
+        let keys = Object.keys(data);
+        if (keys.length === 1) {
+            navigation.navigate('Products', { id: id, getBack: () => getBack() })
+        }
+        // Если категория одиночна, то перебрасывает на товары
+        if (data.length) {
+            history.unshift(data);
+            setHistory(history);
+        }
+        // Запись истории
+        setDeep(deep + 1)
+        // Глубина погружения в категории помогает понять как близко пользователь находится с главным каталогом
+        setLoading(true)
+    }
+
+
     const handleBackButtonClick = () => {
-        // Функция на кнопку назад на android в каталоге
-        route.params.level = null;
-        route.params.direction = false;
-        if (level - 1 == 1) {
+        if (deep <= 1) {
+            // Если от главного каталого один шаг, то перебрасывает на каталог
+            setDeep(0)
             navigation.navigate('Catalog')
         } else {
-            setLevel(level - 1)
-            route.params.slug = route.params.prevSlug;
-            setData([])
+            // Перезаписывает категории изходя из истории 
+            let newParams = history[history.length - 1]
+            console.log('History length ', history.length)
+            console.log('New params ', newParams)
+            route.params.data = newParams;
+            setDeep(deep - 2)
+            setLoading(false)
         }
-        return true;
+
     }
 
     const getBack = () => {
-        // Функция на кнопку назад из продуктов
-        route.params.level = null;
-        route.params.direction = false;
-        if (level - 1 == 1) {
+        // Callback из экрана товаров
+        // Если от главного каталого один шаг, то перебрасывает на каталог
+        if (deep <= 1) {
+            setDeep(0)
             navigation.navigate('Catalog')
         } else {
-            setLevel(level - 1)
-            setDeepness(deepness + 1)
-            route.params.slug = route.params.prevSlug;
-            setData([])
+            // Перезаписывает категории изходя из истории 
+            let newParams = history[0]
+            console.log('History length ', history.length)
+            console.log('New params ', newParams)
+            route.params.data = newParams;
+            setDeep(deep - 2)
+            setLoading(false)
         }
     }
 
-    const handleNavigation = (path, data, full_slug, slug, level, prevSlug) => {
-        // Отчистка данных прошлого уровня и переход на новый
-        setData([])
-        navigation.navigate(path, { data: data, full_slug: full_slug, slug: slug, level: level + 1, direction: true, prevSlug: prevSlug })
+    const handleNavigation = (path, data, index, id) => {
+
+        setLoading(false)
+        navigation.navigate(path, { data: data, index: index, id: id })
     }
 
     return (
-        < Container >
-            {!data.length ? (
-                <Text style={styles.text}>Loading...</Text>
+        <Container>
+            <Button title='Go back' onPress={handleBackButtonClick} />
+            {!loading ? (
+                <Text style={styles.text}>Loading1...</Text>
             ) :
-                <CategoryList level={level} data={data} handleNavigation={handleNavigation} />
+                <View>
+                    <CategoryList subcategory={true} data={data} handleNavigation={handleNavigation} />
+                </View>
             }
         </Container>
     );

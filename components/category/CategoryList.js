@@ -2,46 +2,80 @@ import React from 'react';
 import { TouchableOpacity, Text, StyleSheet, View } from 'react-native';
 import { Avatar, ListItem } from 'react-native-elements';
 
-const CategoryList = ({ level, data, handleNavigation }) => {
-    let index = 0;
-    let newLevel = level;
-    // Поиск дочерней категории 
-    while (!index) {
-        for (let i = 0; i < data.length; i++) {
-            let el = data[i];
-            if (el.level === newLevel) {
-                index++
-                break;
-            }
-        }
-        if (!index) {
-            newLevel++
-        }
+const CategoryList = ({ subcategory, data, handleNavigation }) => {
+
+    const list = [];
+
+    function ListItemObject(content, data) {
+        this.content = content;
+        this.data = data;
     }
-    return data.map((item) => {
-        if (item.level === newLevel) {
-            index += 1;
-            let slug = item.full_slug.split('/')[newLevel - 1]
-            let prevSlug = item.full_slug.split('/')[newLevel - 2]
-            return (
-                <TouchableOpacity key={item.id} onPress={() => handleNavigation('Subcategory', data, item.full_slug, slug, newLevel, prevSlug)}>
-                    <ListItem backgroundColor='blue' bottomDivider>
-                        <Avatar source={{ uri: item.icon }} />
-                        <ListItem.Content>
-                            <ListItem.Title><Text>{item.name}</Text></ListItem.Title>
-                        </ListItem.Content>
-                    </ListItem>
-                </TouchableOpacity>
 
-            )
+    Object.keys(data).map(function (key, index) {
+        let item = data[key];
+        let id
+        let content;
+        let child;
+        let newListItem;
+
+
+        if (subcategory) {
+            if (index > 0) {
+                content = item.content;
+                child = item.child
+                newListItem = new ListItemObject(content, item)
+                list.push(newListItem)
+            }
+        } else {
+            let image;
+            let name;
+            content = item[0].content;
+            if (content) {
+                name = content.name
+                image = content.image
+                id = content.id
+            } else {
+                name = key
+                image = 'https://via.placeholder.com/150'
+            }
+            content = {}
+            content.name = name
+            content.image = image
+            content.id = id
+            newListItem = new ListItemObject(content, item)
+            list.push(newListItem)
         }
-    })
 
 
+    });
 
+    console.log(list)
+
+    if (list.length) {
+        return list.map((item, index) => {
+            if (item && item.content) {
+                let id = item.content.id;
+                let data = item.data.child ? item.data.child : item.data
+                return (
+                    <TouchableOpacity key={Math.random()} onPress={() => handleNavigation('Subcategory', data, index, id)}>
+                        <ListItem backgroundColor='blue' bottomDivider>
+                            <Avatar source={{ uri: item.content.image }} />
+                            <ListItem.Content>
+                                <ListItem.Title><Text>{item.content.name}</Text></ListItem.Title>
+                            </ListItem.Content>
+                        </ListItem>
+                    </TouchableOpacity>
+                )
+            }
+
+        })
+    }
+
+
+    return <Text>Loading</Text>
 
 }
 
 
-export default React.memo(CategoryList)
+export default CategoryList
 
