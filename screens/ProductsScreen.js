@@ -8,18 +8,17 @@ import ProductList from '../components/category/ProductList'
 const ProductsScreen = ({ route, navigation }) => {
 
     const [data, setData] = useState([])
-    let category_id = route.params.id
-
 
     const getData = async () => {
-        let res = await axios.get(`https://www.sima-land.ru/api/v3/item/?category_id=${category_id}`);
+        let res = await axios.get(`https://www.sima-land.ru/api/v3/item/?category_id=${route.params.id}`);
         setData(res.data.items)
     }
 
     useEffect(() => {
-        BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
-        if (data.length === 0) getData()
-    })
+        if (!data.length) getData()
+    }, [])
+
+    //BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
 
     const handleBackButtonClick = () => {
         route.params.getBack()

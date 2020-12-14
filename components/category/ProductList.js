@@ -4,6 +4,7 @@ import { Button, Card } from 'react-native-paper';
 import styled from 'styled-components/native'
 
 const ProductList = ({ data, handleNavigation }) => {
+    console.log('render products')
     return data.map((item) => {
         return (
             <TouchableOpacity key={item.id}>
