@@ -15,10 +15,11 @@ const ProductsScreen = ({ route, navigation }) => {
     }
 
     useEffect(() => {
+        BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
         if (!data.length) getData()
     }, [])
 
-    //BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
+
 
     const handleBackButtonClick = () => {
         route.params.getBack()
@@ -29,10 +30,10 @@ const ProductsScreen = ({ route, navigation }) => {
     return (
         < Container >
             <Button title='Go back' onPress={handleBackButtonClick} />
-            {!data.length ? (
-                <Text style={styles.text}>Loading...</Text>
-            ) :
+            {data.length ? (
                 <ProductList data={data} />
+            ) :
+                <Text style={styles.text}>Loading...</Text>
             }
         </Container>
     );

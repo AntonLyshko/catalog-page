@@ -9,23 +9,19 @@ const SubcategoryScreen = ({ route, navigation }) => {
     const [prevPath, setPrevPath] = useState('')
 
     const getData = async () => {
-        console.log(route.params)
         let res = await axios.get(`https://www.sima-land.ru/api/v3/category/?path=${route.params.path}&level=${route.params.level}`);
         let data = res.data.items
-        console.log(data)
         if (!data.length) {
             let path = route.params.path.split('.');
             let id = path[path.length - 1];
-            console.log('to product')
             navigation.navigate('Products', { id: id, getBack: () => getBack() })
         } else {
             setData(data)
         }
-
     }
 
     useEffect(() => {
-        console.log('useEffect')
+        BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
         if (!data.length) getData()
     })
 
@@ -40,8 +36,6 @@ const SubcategoryScreen = ({ route, navigation }) => {
             console.log('To catalig')
             navigation.navigate('Catalog')
         } else {
-            let path = route.params.path.split('.');
-
             handleNavigation(prevPath, route.params.level - 1)
         }
     }
@@ -54,19 +48,15 @@ const SubcategoryScreen = ({ route, navigation }) => {
         path = path.slice(0, path.length - 1)
         setPrevPath(path)
         //New previus path
-        console.log(route.params.level)
     }
-
 
     return (
         <Container>
             <Button title='Go back' onPress={handleBackButtonClick} />
-            {!data.length ? (
-                <Text style={styles.text}>Loading...</Text>
+            {data.length ? (
+                <CategoryList data={data} handleNavigation={handleNavigation} />
             ) :
-                <View>
-                    <CategoryList data={data} handleNavigation={handleNavigation} />
-                </View>
+                <Text style={styles.text}>Loading...</Text>
             }
         </Container>
     );

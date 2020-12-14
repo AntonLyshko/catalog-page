@@ -24,12 +24,10 @@ const CatalogScreen = ({ route, navigation }) => {
 
     return (
         <Container>
-            {!data.length ? (
-                <Text style={styles.text}>Loading...</Text>
+            {data.length ? (
+                <CategoryList data={data} handleNavigation={handleNavigation} />
             ) :
-                <View>
-                    <CategoryList data={data} handleNavigation={handleNavigation} />
-                </View>
+                <Text style={styles.text}>Loading...</Text>
             }
         </Container>
     );

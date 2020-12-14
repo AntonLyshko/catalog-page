@@ -1,26 +1,36 @@
 import React from 'react';
-import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { TouchableOpacity, Text, StyleSheet, FlatList } from 'react-native';
 import { Button, Card } from 'react-native-paper';
 import styled from 'styled-components/native'
 
 const ProductList = ({ data, handleNavigation }) => {
-    console.log('render products')
-    return data.map((item) => {
+
+    const renderItem = ({ item }) => (
+        <TouchableOpacity key={item.id}>
+            <Container>
+                <Card>
+                    <Card.Title title={item.name} subtitle={item.price + ' руб.'} />
+                    <Card.Cover source={{ uri: item.photoUrl }} />
+                    <Card.Actions>
+                        <Button><Text>Купить</Text></Button>
+                        <Button><Text>Добавить корзину</Text></Button>
+                    </Card.Actions>
+                </Card>
+            </ Container>
+        </TouchableOpacity>
+    );
+
+    if (data.length) {
         return (
-            <TouchableOpacity key={item.id}>
-                <Container>
-                    <Card>
-                        <Card.Title title={item.name} subtitle={item.price + ' руб.'} />
-                        <Card.Cover source={{ uri: item.photoUrl }} />
-                        <Card.Actions>
-                            <Button><Text>Купить</Text></Button>
-                            <Button><Text>Добавить корзину</Text></Button>
-                        </Card.Actions>
-                    </Card>
-                </ Container>
-            </TouchableOpacity>
+            <FlatList
+                data={data}
+                renderItem={renderItem}
+                keyExtractor={item => item.id}
+            />
         )
-    })
+    }
+
+    return <Text>Loading...</Text>
 }
 
 const Container = styled.ScrollView`
